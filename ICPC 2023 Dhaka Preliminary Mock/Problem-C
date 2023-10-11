@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL);
+    
+    int testcase, Case = 1;
+    cin >> testcase;
+    
+    while(testcase--) {
+        cout << "Case " << Case++ << ": ";
+        int n;
+        cin >> n;
+
+        int a, b;
+        cin >> a >> b;
+
+        vector <int> p(n);
+        for (int i = 0; i < n; i++) {
+            cin >> p[i];
+        }
+
+        sort (p.begin(), p.end());
+
+        long long int ans = 0;
+        for (int i = 0; i < n - 1; i++) {
+            if (p[i] > b) continue;
+
+            int lower = lower_bound((p.begin() + i + 1), p.end(), a - p[i]) - (p.begin() + i + 1);
+            int upper = upper_bound((p.begin() + i + 1), p.end(), b - p[i]) - (p.begin() + i + 1);
+
+            if (lower < upper) {
+                ans += (upper - lower);
+            }
+        }
+
+        cout << ans << '\n';
+    }
+    
+    return 0;
+}
